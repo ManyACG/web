@@ -14,7 +14,7 @@ UI: [Varlet](https://varletjs.org)
 
 包管理: [pnpm](https://pnpm.io/)
 
-Node Version: 22
+Node Version: 24
 
 进入项目目录, 安装依赖
 
