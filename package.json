@@ -1,6 +1,7 @@
 {
   "name": "manyacg-web",
   "private": true,
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
