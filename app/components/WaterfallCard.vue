@@ -1,39 +1,20 @@
 <template>
   <div>
-    <var-paper
-      ripple
-      class="card"
-      @click.left="handleCardClick(item)"
-      @click.right.prevent="handleRightClick(item)"
-    >
+    <var-paper ripple class="card" @click.left="handleCardClick(item)" @click.right.prevent="handleRightClick">
       <div :data-id="item.id" class="card-content" underline="none" rel="prefetch">
-        <div
-          class="cover"
-          :style="{
-            aspectRatio:
-              firstPic?.width && firstPic?.height
-                ? `${firstPic.width} / ${firstPic.height}`
-                : '1 / 1'
-          }"
-        >
+        <div class="cover" :style="{
+          aspectRatio:
+            firstPic?.width && firstPic?.height
+              ? `${firstPic.width} / ${firstPic.height}`
+              : '1 / 1'
+        }">
           <Transition>
-            <img
-              v-if="thumbHashDataURL && !loaded"
-              :src="thumbHashDataURL"
-              :alt="item.detail.title"
-              class="img"
-              loading="lazy"
-            />
+            <img v-if="thumbHashDataURL && !loaded" :src="thumbHashDataURL" :alt="item.detail.title" class="img"
+              loading="lazy" />
           </Transition>
           <Transition>
-            <img
-              v-if="loaded"
-              :src="firstPic?.thumbnail"
-              :alt="item.detail.title"
-              class="img"
-              loading="lazy"
-              ref="cardImage"
-            />
+            <img v-if="loaded" :src="firstPic?.thumbnail" :alt="item.detail.title" class="img" loading="lazy"
+              ref="cardImage" />
           </Transition>
         </div>
 
@@ -47,15 +28,8 @@
         </div>
       </div>
     </var-paper>
-    <ElImageViewer
-      v-if="showViewer"
-      :url-list="item.detail.pictures.map((pic) => pic.regular)"
-      @close="showViewer = false"
-      close-on-press-escape
-      hide-on-click-modal
-      show-progress
-      teleported
-    />
+    <var-image-preview v-model:show="showViewer" :images="item.detail.pictures.map((pic) => pic.regular)"
+      close-on-key-escape closeable />
   </div>
 </template>
 
@@ -138,7 +112,7 @@ const handleCardClick = (item: WaterfallItem) => {
   })
 }
 
-const handleRightClick = (item: WaterfallItem) => {
+const handleRightClick = () => {
   showViewer.value = true
 }
 </script>
