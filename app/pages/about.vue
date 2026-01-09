@@ -60,14 +60,6 @@
             >RSS 订阅</var-link
           >
         </li>
-        <li>
-          <var-link
-            href="https://app.follow.is/share/feeds/71961005897733120"
-            class="link"
-            target="_blank"
-            >Follow 订阅</var-link
-          >
-        </li>
       </ul>
       <h3>友联申请</h3>
       <p>
