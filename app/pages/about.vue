@@ -37,30 +37,6 @@
           >manyacg.top/api/v1/artwork/random</var-link
         >
       </p>
-      <h3>关注我们</h3>
-      <ul>
-        <li>
-          Telegram 频道
-          <var-link href="https://t.me/moreacg" class="link" target="_blank">@MoreACG</var-link>
-        </li>
-        <li>
-          后端开源地址
-          <var-link href="https://github.com/krau/ManyACG" class="link" target="_blank"
-            >GitHub: krau/ManyACG</var-link
-          >
-        </li>
-        <li>
-          前端开源地址
-          <var-link href="https://github.com/ManyACG/web" class="link" target="_blank"
-            >GitHub: ManyACG/web</var-link
-          >
-        </li>
-        <li>
-          <var-link href="https://manyacg.top/atom.xml" class="link" target="_blank"
-            >RSS 订阅</var-link
-          >
-        </li>
-      </ul>
       <h3>友联申请</h3>
       <p>
         我们接受相似类型的网站友联申请, 请邮件联系:
