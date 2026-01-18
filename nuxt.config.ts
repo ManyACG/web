@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     rollupConfig: {
-      external: ['resvg-js']
+      external: ['@resvg/resvg-js']
     }
   },
   modules: [
