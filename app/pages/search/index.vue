@@ -6,14 +6,8 @@
     </div>
 
     <div class="searchbar">
-      <var-input
-        type="text"
-        placeholder="输入关键词搜索"
-        class="search-input"
-        variant="outlined"
-        v-model="keyword"
-        @keydown.enter="handleSearch"
-      >
+      <var-input type="text" placeholder="输入关键词搜索" class="search-input" variant="outlined" v-model="keyword"
+        @keydown.enter="handleSearch">
         <template #append-icon>
           <var-button @click="handleSearch" class="search-button" type="primary" size="large">
             搜索

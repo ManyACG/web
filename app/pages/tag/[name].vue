@@ -4,32 +4,27 @@
       <h2># {{ route.params.name }} 标签下的作品</h2>
     </div>
     <var-divider dashed />
-    <var-skeleton :loading="result.list.length === 0" fullscreen></var-skeleton>
+    <div class="content-wrapper">
+      <div v-if="result.list.length === 0" class="skeleton-wrapper">
+        <var-skeleton :loading="true" :rows="8" />
+      </div>
 
-    <VirtualWaterfall
-      :virtual="waterfallOption.virtual"
-      :gap="waterfallOption.gap"
-      :preload-screen-count="waterfallOption.preloadScreenCount"
-      :item-min-width="waterfallOption.itemMinWidth"
-      :max-column-count="waterfallOption.maxColumnCount"
-      :min-column-count="waterfallOption.minColumnCount"
-      :calc-item-height="calcItemHeight"
-      :items="result.list"
-      :enable-cache="waterfallOption.enableCache"
-    >
-      <template #default="scope">
-        <WaterfallCard v-if="scope?.item" :item="scope.item" />
-      </template>
-    </VirtualWaterfall>
+      <VirtualWaterfall :virtual="waterfallOption.virtual" :gap="waterfallOption.gap"
+        :preload-screen-count="waterfallOption.preloadScreenCount" :item-min-width="waterfallOption.itemMinWidth"
+        :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
+        :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
+        <template #default="scope">
+          <WaterfallCard v-if="scope?.item" :item="scope.item" />
+        </template>
+      </VirtualWaterfall>
+    </div>
     <div class="index-footer" v-if="result.end && result.list.length > 0">
-      <div
-        style="
+      <div style="
           font-size: large;
           margin: 0 16px;
           text-align: center;
           color: hsla(var(--hsl-text), 0.8);
-        "
-      >
+        ">
         ∑( 口 || 你居然看完了!
       </div>
     </div>
@@ -54,8 +49,6 @@ useSeoMeta({
   twitterCard: 'summary'
 })
 
-const { containerRef } = useWaterfallContainer()
-
 const { waterfallOption, result, calcItemHeight } = useWaterfall({
   tag: `${route.params.name}`,
   mode: 'index'
@@ -70,6 +63,20 @@ const { waterfallOption, result, calcItemHeight } = useWaterfall({
 
 .tag-info {
   margin-bottom: 5vh;
+}
+
+.content-wrapper {
+  position: relative;
+  min-height: 60vh;
+}
+
+.skeleton-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 .index-footer {

@@ -34,9 +34,9 @@ export interface Artwork {
   pictures: Picture[]
 }
 
-export interface ArtworkListResponse extends BaseResponse<Artwork[]> {}
+export interface ArtworkListResponse extends BaseResponse<Artwork[]> { }
 
-export interface CountResponse extends BaseResponse<number> {}
+export interface CountResponse extends BaseResponse<number> { }
 
 export interface Artist {
   id: string
@@ -46,15 +46,15 @@ export interface Artist {
   uid: number
 }
 
-export interface ArtistResponse extends BaseResponse<Artist> {}
+export interface ArtistResponse extends BaseResponse<Artist> { }
 
-export interface ArtworkDetailResponse extends BaseResponse<Artwork> {}
+export interface ArtworkDetailResponse extends BaseResponse<Artwork> { }
 
 export interface Tag {
   name: string
 }
 
-export interface TagListResponse extends BaseResponse<Tag[]> {}
+export interface TagListResponse extends BaseResponse<Tag[]> { }
 
 export interface ArtworkListRequest {
   page: number
@@ -62,7 +62,7 @@ export interface ArtworkListRequest {
   artist_id?: string
 }
 
-export interface LikeStatusResponse extends BaseResponse<boolean> {}
+export interface LikeStatusResponse extends BaseResponse<boolean> { }
 
 export interface MyIPResponse {
   country: string

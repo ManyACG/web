@@ -1,11 +1,6 @@
 <template>
   <div>
-    <var-dialog
-      v-model:show="show"
-      :lock-scroll="false"
-      confirm-button-text="搜索"
-      @confirm="handleSearch"
-    >
+    <var-dialog v-model:show="show" :lock-scroll="false" confirm-button-text="搜索" @confirm="handleSearch">
       <var-input v-model.trim="keyword" @keydown.enter="handleSearch" />
       <var-space align="center" justify="center">
         <div style="margin-right: 4px; font-size: large; font-weight: bold">AI 搜索</div>

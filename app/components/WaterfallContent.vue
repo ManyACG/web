@@ -1,20 +1,10 @@
 <template>
   <div class="waterfall" id="waterfall-container" ref="containerRef" data-allow-mismatch>
-    <var-skeleton
-      :loading="result.list.length === 0 && props.mode === 'random'"
-      fullscreen
-    ></var-skeleton>
-    <VirtualWaterfall
-      :virtual="waterfallOption.virtual"
-      :gap="waterfallOption.gap"
-      :preload-screen-count="waterfallOption.preloadScreenCount"
-      :item-min-width="waterfallOption.itemMinWidth"
-      :max-column-count="waterfallOption.maxColumnCount"
-      :min-column-count="waterfallOption.minColumnCount"
-      :calc-item-height="calcItemHeight"
-      :items="result.list"
-      :enable-cache="waterfallOption.enableCache"
-    >
+    <var-skeleton :loading="result.list.length === 0 && props.mode === 'random'" fullscreen></var-skeleton>
+    <VirtualWaterfall :virtual="waterfallOption.virtual" :gap="waterfallOption.gap"
+      :preload-screen-count="waterfallOption.preloadScreenCount" :item-min-width="waterfallOption.itemMinWidth"
+      :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
+      :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
       <template #default="scope">
         <WaterfallCard v-if="scope?.item" :item="scope.item" :only-image="isSmall" />
       </template>
@@ -36,8 +26,6 @@ const props = withDefaults(
     mode: 'index'
   }
 )
-
-const { containerRef } = useWaterfallContainer()
 
 const { waterfallOption, result, calcItemHeight } = useWaterfall({
   mode: props.mode

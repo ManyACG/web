@@ -3,7 +3,7 @@
     <div class="text">
       <h2>出错啦!</h2>
 
-      <p>{{ error.message }}</p>
+      <p>{{ error.statusMessage }}</p>
 
       <var-link type="primary" underline="none">
         <var-button size="large" @click="routerBack" title="返回"> 返回 </var-button>

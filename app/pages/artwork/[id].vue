@@ -4,48 +4,31 @@
       <var-progress :value="downloadProgress" v-if="downloadProgress > 0" />
     </ClientOnly>
 
-    <var-skeleton :loading="loading" fullscreen />
-
     <Transition>
       <div class="container" v-show="!loading">
+        <div v-if="loading" class="skeleton-wrapper">
+          <var-skeleton :loading="true" :rows="12" />
+        </div>
         <div class="artwork-container">
           <div class="artwork-pictures">
             <div class="pictures-container">
-              <div
-                class="picture-card var-elevation--2"
-                v-for="(picture, index) in artwork?.pictures"
-                :key="picture.id"
-                :style="{ width: pictureWidth(picture), height: 'auto' }"
-              >
-                <detail-image
-                  :index="index"
-                  :regular="picture.regular"
-                  :thumbnail="picture.thumbnail"
-                  @preview="previewImage"
-                  @load="imageLoad"
-                />
+              <div class="picture-card var-elevation--2" v-for="(picture, index) in artwork?.pictures" :key="picture.id"
+                :style="{ width: pictureWidth(picture), height: 'auto' }">
+                <detail-image :index="index" :regular="picture.regular" :thumbnail="picture.thumbnail"
+                  @preview="previewImage" @load="imageLoad" />
               </div>
             </div>
           </div>
           <div class="artwork-info">
             <div class="artwork-title">{{ artwork?.title }}</div>
             <div class="author-source-section">
-              <var-link
-                class="info-link artwork-artist"
-                underline="none"
-                :to="`/artist/${artwork?.artist.id}`"
-              >
+              <var-link class="info-link artwork-artist" underline="none" :to="`/artist/${artwork?.artist.id}`">
                 <var-icon name="account-circle" />
                 {{ artwork?.artist.name }}
               </var-link>
 
-              <var-link
-                underline="none"
-                class="info-link source-url-link"
-                :href="artwork?.source_url"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <var-link underline="none" class="info-link source-url-link" :href="artwork?.source_url" target="_blank"
+                rel="noopener noreferrer">
                 → {{ artwork?.source_type }}
               </var-link>
             </div>
@@ -70,13 +53,8 @@
               <var-button @click="routerBack" size="large" title="返回">
                 <var-icon name="chevron-left" />
               </var-button>
-              <var-button
-                size="large"
-                text-color="#39c5bb"
-                @click="downloadPictures"
-                :loading="!downloadAvailable"
-                title="下载"
-              >
+              <var-button size="large" text-color="#39c5bb" @click="downloadPictures" :loading="!downloadAvailable"
+                title="下载">
                 <var-icon name="download-outline" />
               </var-button>
               <var-button size="large" title="相关推荐" text-color="#f92f60" @click="searchSimilar">
@@ -90,11 +68,7 @@
           <var-divider>
             <div class="similar-title">相关推荐</div>
           </var-divider>
-          <VirtualWaterfall
-            v-bind="waterfallOption"
-            :calc-item-height="calcItemHeight"
-            :items="result.list"
-          >
+          <VirtualWaterfall v-bind="waterfallOption" :calc-item-height="calcItemHeight" :items="result.list">
             <template #default="scope">
               <WaterfallCard v-if="scope?.item" :item="scope.item" />
             </template>
@@ -177,8 +151,8 @@ const setupSEO = () => {
   const ogImageUrl = artwork.value.r18
     ? '/og-image/nsfw.webp'
     : artwork.value.pictures?.[0]?.regular.endsWith('.avif')
-    ? `https://wsrv.unv.app/?url=${artwork.value.pictures[0].regular}&output=jpg`
-    : artwork.value.pictures?.[0]?.regular
+      ? `https://wsrv.unv.app/?url=${artwork.value.pictures[0].regular}&output=jpg`
+      : artwork.value.pictures?.[0]?.regular
   const seoData = {
     description: artwork.value.description,
     ogTitle: `${artwork.value.title} | ManyACG`,
@@ -522,6 +496,7 @@ const searchSimilar = () => {
   .artwork-info {
     max-width: 100%;
   }
+
   .artwork-info {
     height: auto;
     max-height: 70vh;
@@ -538,6 +513,7 @@ const searchSimilar = () => {
   .artwork-container .picture-card {
     width: 100% !important;
   }
+
   .info-label {
     font-size: 13px;
   }
@@ -571,6 +547,21 @@ const searchSimilar = () => {
   .tags-section {
     padding: 12px;
   }
+}
+
+.container {
+  min-height: 70vh;
+  position: relative;
+}
+
+.skeleton-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10;
+  padding: 20px;
 }
 
 .v-enter-active,

@@ -21,21 +21,16 @@
       <h3>随机图片API</h3>
       <p>
         直接跳转到图片: <br />
-        <var-link href="https://manyacg.top/setu" class="link" target="_blank"
-          >manyacg.top/setu</var-link
-        >
+        <var-link href="https://manyacg.top/setu" class="link" target="_blank">manyacg.top/setu</var-link>
         (默认无R18)
         <br />
-        <var-link href="https://manyacg.top/sese" class="link" target="_blank"
-          >manyacg.top/sese</var-link
-        >
+        <var-link href="https://manyacg.top/sese" class="link" target="_blank">manyacg.top/sese</var-link>
         (含R18, 谨慎访问)
         <br />
         以json格式返回:
         <br />
-        <var-link href="https://manyacg.top/api/v1/artwork/random" class="link" target="_blank"
-          >manyacg.top/api/v1/artwork/random</var-link
-        >
+        <var-link href="https://manyacg.top/api/v1/artwork/random" class="link"
+          target="_blank">manyacg.top/api/v1/artwork/random</var-link>
       </p>
       <h3>友联申请</h3>
       <p>

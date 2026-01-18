@@ -3,37 +3,31 @@
     <div class="search-info">
       <h2>{{ titleText }}</h2>
       <div v-if="hybird" style="display: flex; align-items: center; justify-content: center">
-        <Icon name="line-md:hazard-lights-loop" size="20" style="margin-right: 8px"></Icon
-        >混合搜索已启用
+        <Icon name="line-md:hazard-lights-loop" size="20" style="margin-right: 8px"></Icon>混合搜索已启用
       </div>
     </div>
     <var-divider dashed />
-    <var-skeleton :loading="result.list.length === 0" fullscreen></var-skeleton>
-    <VirtualWaterfall
-      :virtual="waterfallOption.virtual"
-      :gap="waterfallOption.gap"
-      :preload-screen-count="waterfallOption.preloadScreenCount"
-      :item-min-width="waterfallOption.itemMinWidth"
-      :max-column-count="waterfallOption.maxColumnCount"
-      :min-column-count="waterfallOption.minColumnCount"
-      :calc-item-height="calcItemHeight"
-      :items="result.list"
-      :enable-cache="waterfallOption.enableCache"
-    >
-      <template #default="scope">
-        <WaterfallCard v-if="scope?.item" :item="scope.item" />
-      </template>
-    </VirtualWaterfall>
+    <div class="content-wrapper">
+      <div v-if="result.list.length === 0" class="skeleton-wrapper">
+        <var-skeleton :loading="true" :rows="8" />
+      </div>
+      <VirtualWaterfall :virtual="waterfallOption.virtual" :gap="waterfallOption.gap"
+        :preload-screen-count="waterfallOption.preloadScreenCount" :item-min-width="waterfallOption.itemMinWidth"
+        :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
+        :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
+        <template #default="scope">
+          <WaterfallCard v-if="scope?.item" :item="scope.item" />
+        </template>
+      </VirtualWaterfall>
+    </div>
     <div class="index-footer" v-if="result.list.length > 0">
       <var-divider>
-        <div
-          style="
+        <div style="
             font-size: large;
             margin: 0 16px;
             text-align: center;
             color: hsla(var(--hsl-text), 0.8);
-          "
-        >
+          ">
           {{ tipText }}
         </div>
       </var-divider>
@@ -42,8 +36,6 @@
 </template>
 
 <script lang="ts" setup>
-const { containerRef } = useWaterfallContainer()
-
 const route = useRoute()
 const keyword = computed(() => route.query.q?.toString() || '')
 const hybird = computed(() => route.query.hybrid === 'true')
@@ -103,6 +95,20 @@ const tipText = computed(() => {
 .search-info {
   margin-bottom: 2vh;
   text-align: center;
+}
+
+.content-wrapper {
+  position: relative;
+  min-height: 60vh;
+}
+
+.skeleton-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 .index-footer {
