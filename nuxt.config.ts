@@ -22,6 +22,11 @@ export default defineNuxtConfig({
       proxy: `${process.env.API_BASE}/atom`
     }
   },
+  nitro: {
+    rollupConfig: {
+      external: ['resvg-js']
+    }
+  },
   modules: [
     '@varlet/nuxt',
     '@pinia/nuxt',
