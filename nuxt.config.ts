@@ -33,7 +33,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-api-party',
     'nuxt-umami',
-    '@nuxtjs/seo',
     '@nuxt/icon',
     '@nuxtjs/fontaine',
     'pinia-plugin-persistedstate/nuxt',
@@ -51,29 +50,6 @@ export default defineNuxtConfig({
       }
     },
     client: process.env.CLIENT_MODE === 'always' ? 'always' : process.env.CLIENT_MODE === 'true'
-  },
-
-  site: {
-    url:
-      process.env.SITE_URL !== undefined && process.env.SITE_URL !== ''
-        ? process.env.SITE_URL
-        : 'https://manyacg.top',
-    name: 'ManyACG'
-
-  },
-
-  robots: {
-    allow: ['/']
-  },
-
-  sitemap: {
-    exclude: ['/register', '/profile'],
-    zeroRuntime: true
-  },
-
-  seo: {
-    enabled: true,
-    redirectToCanonicalSiteUrl: true
   },
 
   umami: {
