@@ -176,9 +176,9 @@ const setupSEO = () => {
 
   const ogImageUrl = artwork.value.r18
     ? '/og-image/nsfw.webp'
-    : artwork.value.pictures[0]?.regular.endsWith('.avif')
+    : artwork.value.pictures?.[0]?.regular.endsWith('.avif')
     ? `https://wsrv.unv.app/?url=${artwork.value.pictures[0].regular}&output=jpg`
-    : artwork.value.pictures[0]?.regular
+    : artwork.value.pictures?.[0]?.regular
   const seoData = {
     description: artwork.value.description,
     ogTitle: `${artwork.value.title} | ManyACG`,
@@ -258,7 +258,7 @@ const downloadMultiplePictures = async () => {
 
   for await (const fileName of asyncPool(
     DOWNLOAD_CONCURRENCY,
-    artwork.value!.pictures,
+    artwork.value!.pictures || [],
     downloadPicture
   )) {
     downloadedCount.value++
@@ -274,7 +274,7 @@ const downloadMultiplePictures = async () => {
 }
 
 const downloadPictures = async () => {
-  if (!downloadAvailable.value || !artwork.value) return
+  if (!downloadAvailable.value || !artwork.value || !artwork.value.pictures?.length) return
 
   downloadAvailable.value = false
   try {
