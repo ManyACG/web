@@ -36,6 +36,8 @@
 </template>
 
 <script lang="ts" setup>
+const { containerRef } = useWaterfallContainer()
+
 const route = useRoute()
 const keyword = computed(() => route.query.q?.toString() || '')
 const hybird = computed(() => route.query.hybrid === 'true')

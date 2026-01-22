@@ -27,6 +27,8 @@ const props = withDefaults(
   }
 )
 
+const { containerRef } = useWaterfallContainer()
+
 const { waterfallOption, result, calcItemHeight } = useWaterfall({
   mode: props.mode
 })

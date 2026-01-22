@@ -49,6 +49,8 @@ useSeoMeta({
   twitterCard: 'summary'
 })
 
+const { containerRef } = useWaterfallContainer()
+
 const { waterfallOption, result, calcItemHeight } = useWaterfall({
   tag: `${route.params.name}`,
   mode: 'index'
