@@ -1,34 +1,41 @@
 <template>
   <div class="container" ref="containerRef" data-allow-mismatch>
-    <div class="search-info">
-      <h2>{{ titleText }}</h2>
-      <div v-if="hybird" style="display: flex; align-items: center; justify-content: center">
-        <Icon name="line-md:hazard-lights-loop" size="20" style="margin-right: 8px"></Icon>混合搜索已启用
+    <div class="search-header">
+      <div class="search-header-bg"></div>
+      <div class="search-info">
+        <div class="search-icon-wrapper">
+          <var-icon :name="similarTarget ? 'camera-outline' : 'magnify'" :size="32" />
+        </div>
+        <h2 class="search-title">{{ titleText }}</h2>
+        <div v-if="hybird" class="hybrid-badge">
+          <Icon name="line-md:hazard-lights-loop" size="18"></Icon>
+          <span>AI 混合搜索</span>
+        </div>
       </div>
     </div>
-    <var-divider dashed />
-    <div class="content-wrapper">
-      <div v-if="result.list.length === 0" class="skeleton-wrapper">
-        <var-skeleton :loading="true" :rows="8" />
+
+    <div class="content-section">
+      <div class="content-wrapper">
+        <div v-if="result.list.length === 0" class="skeleton-wrapper">
+          <var-skeleton :loading="true" :rows="8" />
+        </div>
+
+        <VirtualWaterfall :virtual="waterfallOption.virtual" :gap="waterfallOption.gap"
+          :preload-screen-count="waterfallOption.preloadScreenCount" :item-min-width="waterfallOption.itemMinWidth"
+          :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
+          :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
+          <template #default="scope">
+            <WaterfallCard v-if="scope?.item" :item="scope.item" />
+          </template>
+        </VirtualWaterfall>
       </div>
-      <VirtualWaterfall :virtual="waterfallOption.virtual" :gap="waterfallOption.gap"
-        :preload-screen-count="waterfallOption.preloadScreenCount" :item-min-width="waterfallOption.itemMinWidth"
-        :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
-        :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
-        <template #default="scope">
-          <WaterfallCard v-if="scope?.item" :item="scope.item" />
-        </template>
-      </VirtualWaterfall>
     </div>
+
     <div class="index-footer" v-if="result.list.length > 0">
       <var-divider>
-        <div style="
-            font-size: large;
-            margin: 0 16px;
-            text-align: center;
-            color: hsla(var(--hsl-text), 0.8);
-          ">
-          {{ tipText }}
+        <div class="footer-text">
+          <var-icon :name="result.end ? 'emoticon-happy-outline' : 'loading'" :size="20" />
+          <span>{{ tipText }}</span>
         </div>
       </var-divider>
     </div>
@@ -82,9 +89,9 @@ if (result.errorMessage) {
 
 const tipText = computed(() => {
   if (result.end) {
-    return ' ∑( 口 || 你居然看完了!'
+    return '你居然看完了!'
   }
-  return '正在加载, 别急 §(*￣▽￣*)§'
+  return '正在加载更多...'
 })
 </script>
 
@@ -92,11 +99,77 @@ const tipText = computed(() => {
 .container {
   margin: 0 auto;
   max-width: 95%;
+  padding-bottom: 40px;
+}
+
+.search-header {
+  position: relative;
+  margin: 0 -2.5% 40px;
+  padding: 50px 2.5%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.search-header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(57, 197, 187, 0.15) 0%, rgba(192, 238, 240, 0.1) 100%);
+  backdrop-filter: blur(10px);
 }
 
 .search-info {
-  margin-bottom: 2vh;
-  text-align: center;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 50%;
+  border: 2px solid rgba(57, 197, 187, 0.3);
+  box-shadow: 0 8px 24px rgba(57, 197, 187, 0.2);
+  color: #39c5bb;
+}
+
+.search-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: hsla(var(--hsl-text), 0.9);
+  letter-spacing: -0.5px;
+  max-width: 80%;
+  word-break: break-word;
+}
+
+.hybrid-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255, 200, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 200, 0, 0.3);
+  color: #d68a00;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255, 200, 0, 0.15);
+}
+
+.content-section {
+  margin-top: 32px;
 }
 
 .content-wrapper {
@@ -114,13 +187,44 @@ const tipText = computed(() => {
 }
 
 .index-footer {
-  margin-top: 16px;
-  height: 64px;
+  margin-top: 48px;
+}
+
+.footer-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  color: hsla(var(--hsl-text), 0.7);
 }
 
 @media (max-width: 768px) {
   .container {
     max-width: 100%;
+  }
+
+  .search-header {
+    margin: 0 0 24px;
+    padding: 32px 16px;
+  }
+
+  .search-icon-wrapper {
+    width: 56px;
+    height: 56px;
+  }
+
+  .search-title {
+    font-size: 20px;
+    max-width: 90%;
+  }
+
+  .hybrid-badge {
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+
+  .section-title {
+    font-size: 18px;
   }
 }
 </style>
