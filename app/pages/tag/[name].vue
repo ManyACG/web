@@ -66,8 +66,16 @@ const { waterfallOption, result, calcItemHeight } = useWaterfall({
 })
 
 // 根据标签名生成颜色主题
-const tagColorTheme = computed(() => {
-  const themes = [
+type TagColorTheme = {
+  name: string
+  gradient: string
+  color: string
+  bgLight: string
+  bgDark: string
+}
+
+const tagColorTheme = computed<TagColorTheme>(() => {
+  const themes: TagColorTheme[] = [
     { name: 'pink', gradient: 'linear-gradient(135deg, rgba(249, 47, 96, 0.12) 0%, rgba(192, 238, 240, 0.15) 100%)', color: '#f92f60', bgLight: 'rgba(249, 47, 96, 0.15)', bgDark: 'rgba(249, 47, 96, 0.2)' },
     { name: 'purple', gradient: 'linear-gradient(135deg, rgba(156, 39, 176, 0.12) 0%, rgba(103, 58, 183, 0.15) 100%)', color: '#9c27b0', bgLight: 'rgba(156, 39, 176, 0.15)', bgDark: 'rgba(156, 39, 176, 0.2)' },
     { name: 'blue', gradient: 'linear-gradient(135deg, rgba(33, 150, 243, 0.12) 0%, rgba(57, 197, 187, 0.15) 100%)', color: '#2196f3', bgLight: 'rgba(33, 150, 243, 0.15)', bgDark: 'rgba(33, 150, 243, 0.2)' },
@@ -85,7 +93,8 @@ const tagColorTheme = computed(() => {
     hash = str.charCodeAt(i) + ((hash << 5) - hash)
   }
   const index = Math.abs(hash) % themes.length
-  return themes[index]
+  const fallbackTheme = themes[0]!
+  return themes[index] ?? fallbackTheme
 })
 </script>
 
