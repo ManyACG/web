@@ -9,7 +9,7 @@
         <div v-if="loading" class="skeleton-wrapper">
           <var-skeleton :loading="true" :rows="12" />
         </div>
-        <div class="artwork-container">
+        <div class="artwork-container" :class="{ 'vertical-layout': hasWideImage }">
           <div class="artwork-pictures">
             <div class="pictures-container">
               <div class="picture-card var-elevation--2" v-for="(picture, index) in artwork?.pictures" :key="picture.id"
@@ -107,8 +107,21 @@ const downloadProgress = computed(() => {
   return (downloadedCount.value / artwork.value.pictures.length) * 100
 })
 
-const pictureWidth = (picture: Picture) =>
-  picture.width / picture.height > 1 ? '100%' : `${(picture.width / picture.height) * 100}%`
+// 检测是否有超宽图片（宽高比 > 2）
+const hasWideImage = computed(() => {
+  if (!artwork.value?.pictures?.length) return false
+  return artwork.value.pictures.some((picture) => picture.width / picture.height > 2)
+})
+
+const pictureWidth = (picture: Picture) => {
+  const aspectRatio = picture.width / picture.height
+  // 如果有超宽图片，在垂直布局下所有图片都占满宽度
+  if (hasWideImage.value) {
+    return '100%'
+  }
+  // 原有逻辑：横图100%，竖图按比例
+  return aspectRatio > 1 ? '100%' : `${aspectRatio * 100}%`
+}
 
 const showSnackbar = (content: string, type: 'success' | 'error' | 'warning' = 'error') => {
   Snackbar({ content, position: 'bottom', type })
@@ -286,6 +299,34 @@ const searchSimilar = () => {
   gap: 20px;
 }
 
+/* 超宽图片时的垂直布局 */
+.artwork-container.vertical-layout {
+  flex-direction: column;
+}
+
+.artwork-container.vertical-layout .artwork-pictures {
+  max-width: 100%;
+  max-height: none;
+}
+
+.artwork-container.vertical-layout .artwork-info {
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+}
+
+.artwork-container.vertical-layout .artwork-description.scrollable-content {
+  max-height: 200px;
+}
+
+.artwork-container.vertical-layout .artwork-tags {
+  max-height: 80px;
+}
+
+.artwork-container.vertical-layout .picture-card {
+  width: 100% !important;
+}
+
 .artwork-pictures {
   flex: 1;
   max-width: 70%;
@@ -301,10 +342,15 @@ const searchSimilar = () => {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  align-items: center;
+  padding: 8px;
 }
 
 .picture-card {
   margin: 0 auto;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .artwork-info {
