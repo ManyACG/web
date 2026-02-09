@@ -108,12 +108,11 @@ useSeoMeta({
   right: 0;
   bottom: 0;
   background: linear-gradient(135deg, rgba(192, 238, 240, 0.15) 0%, rgba(57, 197, 187, 0.1) 100%);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
 }
 
 .artist-info {
   position: relative;
-  z-index: 1;
 }
 
 .artist-details {
@@ -121,8 +120,7 @@ useSeoMeta({
   flex-direction: column;
   gap: 16px;
   padding: 20px 32px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   border: 1px solid rgba(192, 238, 240, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);

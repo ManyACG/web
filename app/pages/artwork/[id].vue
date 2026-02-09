@@ -349,7 +349,7 @@ const searchSimilar = () => {
 .picture-card {
   margin: 0 auto;
   transition: all 0.3s ease;
-  border-radius: 8px;
+  border-radius: 2px;
   overflow: hidden;
 }
 
