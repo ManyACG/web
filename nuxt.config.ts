@@ -36,7 +36,7 @@ export default defineNuxtConfig({
     'nuxt-umami',
     '@nuxt/icon',
     '@nuxtjs/fontaine',
-    'pinia-plugin-persistedstate/nuxt',
+    'pinia-plugin-persistedstate/nuxt'
   ],
 
   piniaPluginPersistedstate: {

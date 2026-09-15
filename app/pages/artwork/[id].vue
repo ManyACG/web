@@ -12,23 +12,41 @@
         <div class="artwork-container" :class="{ 'vertical-layout': hasWideImage }">
           <div class="artwork-pictures">
             <div class="pictures-container">
-              <div class="picture-card var-elevation--2" v-for="(picture, index) in artwork?.pictures" :key="picture.id"
-                :style="{ width: pictureWidth(picture), height: 'auto' }">
-                <detail-image :index="index" :regular="picture.regular" :thumbnail="picture.thumbnail"
-                  @preview="previewImage" @load="imageLoad" />
+              <div
+                class="picture-card var-elevation--2"
+                v-for="(picture, index) in artwork?.pictures"
+                :key="picture.id"
+                :style="{ width: pictureWidth(picture), height: 'auto' }"
+              >
+                <detail-image
+                  :index="index"
+                  :regular="picture.regular"
+                  :thumbnail="picture.thumbnail"
+                  @preview="previewImage"
+                  @load="imageLoad"
+                />
               </div>
             </div>
           </div>
           <div class="artwork-info">
             <div class="artwork-title">{{ artwork?.title }}</div>
             <div class="author-source-section">
-              <var-link class="info-link artwork-artist" underline="none" :to="`/artist/${artwork?.artist.id}`">
+              <var-link
+                class="info-link artwork-artist"
+                underline="none"
+                :to="`/artist/${artwork?.artist.id}`"
+              >
                 <var-icon name="account-circle" />
                 {{ artwork?.artist.name }}
               </var-link>
 
-              <var-link underline="none" class="info-link source-url-link" :href="artwork?.source_url" target="_blank"
-                rel="noopener noreferrer">
+              <var-link
+                underline="none"
+                class="info-link source-url-link"
+                :href="artwork?.source_url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 → {{ artwork?.source_type }}
               </var-link>
             </div>
@@ -53,8 +71,13 @@
               <var-button @click="routerBack" size="large" title="返回">
                 <var-icon name="chevron-left" />
               </var-button>
-              <var-button size="large" text-color="#39c5bb" @click="downloadPictures" :loading="!downloadAvailable"
-                title="下载">
+              <var-button
+                size="large"
+                text-color="#39c5bb"
+                @click="downloadPictures"
+                :loading="!downloadAvailable"
+                title="下载"
+              >
                 <var-icon name="download-outline" />
               </var-button>
               <var-button size="large" title="相关推荐" text-color="#39c5bb" @click="searchSimilar">
@@ -68,7 +91,11 @@
           <var-divider>
             <div class="similar-title">相关推荐</div>
           </var-divider>
-          <VirtualWaterfall v-bind="waterfallOption" :calc-item-height="calcItemHeight" :items="result.list">
+          <VirtualWaterfall
+            v-bind="waterfallOption"
+            :calc-item-height="calcItemHeight"
+            :items="result.list"
+          >
             <template #default="scope">
               <WaterfallEntryCard v-if="scope?.item" :item="scope.item" />
             </template>

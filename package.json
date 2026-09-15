@@ -6,6 +6,10 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "start": "node .output/server/index.mjs"
@@ -42,6 +46,8 @@
   },
   "devDependencies": {
     "@nuxtjs/robots": "^5.7.0",
-    "nuxt-link-checker": "^4.3.5"
+    "nuxt-link-checker": "^4.3.5",
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0"
   }
 }

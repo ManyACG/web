@@ -1,10 +1,20 @@
 <template>
   <div class="waterfall" id="waterfall-container" ref="containerRef" data-allow-mismatch>
-    <var-skeleton :loading="result.list.length === 0 && props.mode === 'random'" fullscreen></var-skeleton>
-    <VirtualWaterfall :virtual="waterfallOption.virtual" :gap="waterfallOption.gap"
-      :preload-screen-count="waterfallOption.preloadScreenCount" :item-min-width="waterfallOption.itemMinWidth"
-      :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
-      :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
+    <var-skeleton
+      :loading="result.list.length === 0 && props.mode === 'random'"
+      fullscreen
+    ></var-skeleton>
+    <VirtualWaterfall
+      :virtual="waterfallOption.virtual"
+      :gap="waterfallOption.gap"
+      :preload-screen-count="waterfallOption.preloadScreenCount"
+      :item-min-width="waterfallOption.itemMinWidth"
+      :max-column-count="waterfallOption.maxColumnCount"
+      :min-column-count="waterfallOption.minColumnCount"
+      :calc-item-height="calcItemHeight"
+      :items="result.list"
+      :enable-cache="waterfallOption.enableCache"
+    >
       <template #default="scope">
         <WaterfallEntryCard v-if="scope?.item" :item="scope.item" :only-image="isSmall" />
       </template>
@@ -20,7 +30,7 @@
 <script lang="ts" setup>
 const props = withDefaults(
   defineProps<{
-    mode: 'random' | 'index'
+    mode?: 'random' | 'index'
     withAd?: boolean
   }>(),
   {

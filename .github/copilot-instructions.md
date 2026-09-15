@@ -1,18 +1,21 @@
 # ManyACG Web – AI 开发说明
 
 ## 项目概览
+
 - 技术栈：Nuxt 4 + TypeScript，UI 主要使用 Varlet（`@varlet/ui`）+ 虚拟瀑布流（`@lhlyu/vue-virtual-waterfall`），部分细节用 Element Plus（如 `ElImageViewer`）。
 - 路由/页面：使用 Nuxt 约定式路由，页面位于 `app/pages`，全局布局在 `app/layouts/default.vue`，入口在 `app/app.vue`。
 - 状态管理：使用 Pinia（`@pinia/nuxt`），全局 store 在 `app/stores/store.ts`，并通过 `pinia-plugin-persistedstate` 持久化到 `localStorage`。
 - 接口访问：通过 `nuxt-api-party` 配置的 `acgapi` 端点，对外暴露组合式函数 `useAcgapiData` 和 `$acgapi`（见多处使用），后端基址由环境变量 `API_BASE` 提供。
 
 ## 运行与环境
+
 - Node 版本：24，包管理工具：pnpm（见根目录 `README.md`）。
 - 开发：在仓库根目录执行：`pnpm i` → `pnpm dev`。
 - 构建与生产：`pnpm build`，Node 直接运行 `.output/server/index.mjs`。
 - 环境变量：参考 `.env.example`，至少需要 `API_BASE`、`CLIENT_MODE` 等，`nuxt.config.ts` 中使用 `runtimeConfig` 和 `routeRules` 进行 API 代理/重定向。
 
 ## 关键结构与模式
+
 - 瀑布流数据流：
   - 瀑布流逻辑集中在 `app/composables/useWaterfall.ts`，负责：分页参数（`fetchParams`）、结果状态（`result`）、错误处理、滚动触底加载等。
   - 使用 `useAcgapiData<ArtworkListResponse>(apiEndpoint, { query: fetchParams, ... })` 拉取数据，并将 `Artwork` 封装为 `WaterfallItem` 后推入 `result.list`。
@@ -25,8 +28,8 @@
     - 调用 `useArtworkStore().addArtwork(item.detail)` 把完整 `Artwork` 缓存起来；
     - 然后 `navigateTo({ path: "/artwork/${item.id}" })` 进入详情页。
   - 详情页 `app/pages/artwork/[id].vue` 首先从 `useArtworkStore().getArtwork(artworkId)` 读取缓存；若不存在，再使用 `$acgapi<ArtworkDetailResponse>(
-    "/artwork/${artworkId}"
-  )` 拉取并赋值。
+"/artwork/${artworkId}"
+)` 拉取并赋值。
   - 在此基础上实现新详情相关功能时，应：
     - 先尝试从 `useArtworkStore` 读取，避免重复请求；
     - 若需额外字段，扩展 `app/types/artwork.ts` 中对应接口类型。
@@ -45,6 +48,7 @@
   - 推荐区域复用瀑布流：`app/pages/artwork/[id].vue` 底部的“相关推荐”区域通过 `useWaterfall({ similarTarget: artworkId })` 获取相似作品。
 
 ## UI、主题与布局约定
+
 - 全局布局：
   - 顶部导航和侧边菜单在 `app/layouts/default.vue` 中，使用 `var-app-bar` 与 `var-popup` 实现。
   - 布局中包含全局搜索弹窗 `SearchDialog`、R18 开关、主题切换以及 RSS 链接等；新增全局入口请优先在此布局中扩展菜单项数组 `menuItems`。
@@ -67,6 +71,7 @@
     - 用 `useSeoMeta` 设置 `ogTitle` / `description` / `twitter*` 字段，以 `ManyACG` 结尾保持统一。
 
 ## 其他约定
+
 - 类型定义：所有与作品/作者/标签相关的接口类型集中在 `app/types/artwork.ts`，扩展 API 返回字段时优先修改这里，并在 store 与页面中统一使用。
 - 工具/辅助：日期、路由返回等通用逻辑在 `app/utils` 中（如 `router-back.ts`），新增通用功能时放入此目录，页面中只引用工具接口。
 - 旧代码：`backup/deprecated` 下为旧组件/页面，仅作为参考，不要在新功能中继续依赖。

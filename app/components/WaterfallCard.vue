@@ -1,20 +1,39 @@
 <template>
   <div>
-    <var-paper ripple class="card" @click.left="handleCardClick(item)" @click.right.prevent="handleRightClick">
+    <var-paper
+      ripple
+      class="card"
+      @click.left="handleCardClick(item)"
+      @click.right.prevent="handleRightClick"
+    >
       <div :data-id="item.id" class="card-content" underline="none" rel="prefetch">
-        <div class="cover" :style="{
-          aspectRatio:
-            firstPic?.width && firstPic?.height
-              ? `${firstPic.width} / ${firstPic.height}`
-              : '1 / 1'
-        }">
+        <div
+          class="cover"
+          :style="{
+            aspectRatio:
+              firstPic?.width && firstPic?.height
+                ? `${firstPic.width} / ${firstPic.height}`
+                : '1 / 1'
+          }"
+        >
           <Transition>
-            <img v-if="thumbHashDataURL && !loaded" :src="thumbHashDataURL" :alt="item.detail.title" class="img"
-              loading="lazy" />
+            <img
+              v-if="thumbHashDataURL && !loaded"
+              :src="thumbHashDataURL"
+              :alt="item.detail.title"
+              class="img"
+              loading="lazy"
+            />
           </Transition>
           <Transition>
-            <img v-if="loaded" :src="firstPic?.thumbnail" :alt="item.detail.title" class="img" loading="lazy"
-              ref="cardImage" />
+            <img
+              v-if="loaded"
+              :src="firstPic?.thumbnail"
+              :alt="item.detail.title"
+              class="img"
+              loading="lazy"
+              ref="cardImage"
+            />
           </Transition>
         </div>
 
@@ -28,8 +47,12 @@
         </div>
       </div>
     </var-paper>
-    <var-image-preview v-model:show="showViewer" :images="item.detail.pictures.map((pic) => pic.regular)"
-      close-on-key-escape closeable />
+    <var-image-preview
+      v-model:show="showViewer"
+      :images="item.detail.pictures.map((pic) => pic.regular)"
+      close-on-key-escape
+      closeable
+    />
   </div>
 </template>
 

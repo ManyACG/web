@@ -12,12 +12,21 @@
       </div>
 
       <div class="links-grid">
-        <div v-for="link in friendLinks" :key="link.link" class="link-card var-elevation--3"
-          @click="openLink(link.link)">
+        <div
+          v-for="link in friendLinks"
+          :key="link.link"
+          class="link-card var-elevation--3"
+          @click="openLink(link.link)"
+        >
           <div class="link-content">
             <div class="link-icon">
               <Icon :name="link.icon" size="24" v-if="link.icon" />
-              <img v-else-if="link.avatar" :src="link.avatar" :alt="link.name" class="avatar-image" />
+              <img
+                v-else-if="link.avatar"
+                :src="link.avatar"
+                :alt="link.name"
+                class="avatar-image"
+              />
               <var-icon name="bookmark-outline" size="24" v-else />
             </div>
             <div class="link-info">

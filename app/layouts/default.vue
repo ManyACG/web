@@ -7,7 +7,13 @@
         <img :src="bannerSrc" alt="ManyACG" class="banner-logo" />
       </var-link>
       <template #left>
-        <var-button color="transparent" text-color="#fff" text @click="showPopup = true" title="菜单">
+        <var-button
+          color="transparent"
+          text-color="#fff"
+          text
+          @click="showPopup = true"
+          title="菜单"
+        >
           <var-icon name="menu" size="24" />
         </var-button>
         <var-button text color="transparent" @click="showSearchDialog = true" title="搜索">
@@ -43,8 +49,12 @@
         <var-divider />
         <var-space direction="column" size="large">
           <template v-for="item in menuItems" :key="item.text">
-            <popup-menu-item :icon-name="item.iconName" :text="item.text" :to="item.to"
-              @click="item.onClick ? item.onClick() : (showPopup = false)" />
+            <popup-menu-item
+              :icon-name="item.iconName"
+              :text="item.text"
+              :to="item.to"
+              @click="item.onClick ? item.onClick() : (showPopup = false)"
+            />
           </template>
         </var-space>
       </div>
@@ -142,13 +152,13 @@ const menuItems = computed(() => [
   },
   ...(isNotCN.value
     ? [
-      {
-        iconName: r18StatusIcon.value,
-        text: 'R18',
-        to: '',
-        onClick: toggleR18
-      }
-    ]
+        {
+          iconName: r18StatusIcon.value,
+          text: 'R18',
+          to: '',
+          onClick: toggleR18
+        }
+      ]
     : [])
 ])
 

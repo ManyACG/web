@@ -27,11 +27,18 @@
           <div v-if="result.list.length === 0" class="skeleton-wrapper">
             <var-skeleton :loading="true" :rows="8" />
           </div>
-          
-          <VirtualWaterfall :virtual="waterfallOption.virtual" :gap="waterfallOption.gap"
-            :preload-screen-count="waterfallOption.preloadScreenCount" :item-min-width="waterfallOption.itemMinWidth"
-            :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
-            :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
+
+          <VirtualWaterfall
+            :virtual="waterfallOption.virtual"
+            :gap="waterfallOption.gap"
+            :preload-screen-count="waterfallOption.preloadScreenCount"
+            :item-min-width="waterfallOption.itemMinWidth"
+            :max-column-count="waterfallOption.maxColumnCount"
+            :min-column-count="waterfallOption.minColumnCount"
+            :calc-item-height="calcItemHeight"
+            :items="result.list"
+            :enable-cache="waterfallOption.enableCache"
+          >
             <template #default="scope">
               <WaterfallEntryCard v-if="scope?.item" :item="scope.item" />
             </template>

@@ -1,7 +1,15 @@
 <template>
   <a class="ad-card" :href="ad.link" target="_blank" rel="noopener noreferrer sponsored">
-    <img class="ad-image" :src="ad.image" alt="广告" :width="ad.width" :height="ad.height" loading="lazy"
-      decoding="async" :style="{ aspectRatio: `${ad.width} / ${ad.height}` }" />
+    <img
+      class="ad-image"
+      :src="ad.image"
+      alt="广告"
+      :width="ad.width"
+      :height="ad.height"
+      loading="lazy"
+      decoding="async"
+      :style="{ aspectRatio: `${ad.width} / ${ad.height}` }"
+    />
   </a>
 </template>
 
