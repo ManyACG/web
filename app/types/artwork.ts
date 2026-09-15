@@ -74,3 +74,17 @@ export interface WaterfallItem {
   id: string
   detail: Artwork
 }
+
+export interface AdItem {
+  image: string
+  width: number
+  height: number
+  link: string
+}
+
+export interface WaterfallAdItem {
+  id: string
+  ad: AdItem
+}
+
+export type WaterfallEntry = WaterfallItem | WaterfallAdItem

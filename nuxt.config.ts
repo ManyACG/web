@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      botUsername: process.env.NUXT_PUBLIC_BOT_USERNAME
+      botUsername: process.env.NUXT_PUBLIC_BOT_USERNAME,
+      adLink: process.env.NUXT_PUBLIC_AD_LINK
     },
     apiBase: process.env.API_BASE
   },

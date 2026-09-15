@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="index-contanier">
-      <waterfall-content mode="index" />
+      <waterfall-content mode="index" with-ad />
     </div>
   </div>
 </template>

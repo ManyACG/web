@@ -6,7 +6,7 @@
       :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
       :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
       <template #default="scope">
-        <WaterfallCard v-if="scope?.item" :item="scope.item" :only-image="isSmall" />
+        <WaterfallEntryCard v-if="scope?.item" :item="scope.item" :only-image="isSmall" />
       </template>
     </VirtualWaterfall>
     <div class="index-footer" v-if="result.list.length > 0">
@@ -21,16 +21,19 @@
 const props = withDefaults(
   defineProps<{
     mode: 'random' | 'index'
+    withAd?: boolean
   }>(),
   {
-    mode: 'index'
+    mode: 'index',
+    withAd: false
   }
 )
 
 const { containerRef } = useWaterfallContainer()
 
 const { waterfallOption, result, calcItemHeight } = useWaterfall({
-  mode: props.mode
+  mode: props.mode,
+  withAd: props.withAd
 })
 
 const isSmall = useSmallWindow()

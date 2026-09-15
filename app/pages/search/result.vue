@@ -25,7 +25,7 @@
           :max-column-count="waterfallOption.maxColumnCount" :min-column-count="waterfallOption.minColumnCount"
           :calc-item-height="calcItemHeight" :items="result.list" :enable-cache="waterfallOption.enableCache">
           <template #default="scope">
-            <WaterfallCard v-if="scope?.item" :item="scope.item" />
+            <WaterfallEntryCard v-if="scope?.item" :item="scope.item" />
           </template>
         </VirtualWaterfall>
       </div>

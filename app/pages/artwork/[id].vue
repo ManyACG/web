@@ -70,7 +70,7 @@
           </var-divider>
           <VirtualWaterfall v-bind="waterfallOption" :calc-item-height="calcItemHeight" :items="result.list">
             <template #default="scope">
-              <WaterfallCard v-if="scope?.item" :item="scope.item" />
+              <WaterfallEntryCard v-if="scope?.item" :item="scope.item" />
             </template>
           </VirtualWaterfall>
         </div>
@@ -135,7 +135,8 @@ const handleApiError = (error: any, response?: any) => {
 }
 
 const { waterfallOption, result, calcItemHeight } = useWaterfall({
-  similarTarget: artworkId
+  similarTarget: artworkId,
+  withAd: true
 })
 
 // 获取作品数据
